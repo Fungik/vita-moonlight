@@ -114,15 +114,18 @@ int mkcert(X509 **x509p, EVP_PKEY **pkeyp, int bits, int serial, int years) {
         x = *x509p;
     }
 
-    rsa = RSA_generate_key(bits, RSA_F4, NULL, NULL);
-    if (!rsa) {
-        const char *file, *data;
-        int flags = ERR_TXT_STRING;
-        int line;
-        ERR_peek_last_error_line_data(&file, &line, &data, &flags);
-        printf("openssl error 0x%x => %s:%d %s\n", ERR_peek_last_error(), file, line, data);
+    BIGNUM* bne = BN_new();
+    if (bne == NULL) {
+        abort();
+        goto err;
     }
-    printf("gen rsa %x\n", rsa);
+
+    BN_set_word(bne, RSA_F4);
+    if (RSA_generate_key_ex(rsa, bits, bne, NULL) == 0) {
+        abort();
+        goto err;
+    }
+
     if (!EVP_PKEY_assign_RSA(pk, rsa)) {
         printf("abort 2\n");
         abort();
