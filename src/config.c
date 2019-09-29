@@ -39,7 +39,7 @@
 #define write_config_string(fd, key, value) fprintf(fd, "%s = %s\n", key, value)
 #define write_config_int(fd, key, value) fprintf(fd, "%s = %d\n", key, value)
 #define write_config_hex(fd, key, value) fprintf(fd, "%s = %X\n", key, value)
-#define write_config_bool(fd, key, value) fprintf(fd, "%s = %s\n", key, value?"true":"false");
+#define write_config_bool(fd, key, value) fprintf(fd, "%s = %s\n", key, value ? "true":"false")
 #define write_config_section(fd, key) fprintf(fd, "\n[%s]\n", key)
 
 CONFIGURATION config;
