@@ -34,3 +34,13 @@ make
 
 [moonlight]: https://github.com/moonlight-stream
 [reflection]: http://www.publicdomainpictures.net/view-image.php?image=130014&picture=moonlight-reflection
+
+## See also
+
+[Moonlight-common-c](https://github.com/moonlight-stream/moonlight-common-c) is the shared codebase between different Moonlight implementations
+
+## Contribute
+
+1. Fork us
+2. Write code
+3. Send Pull Requests
