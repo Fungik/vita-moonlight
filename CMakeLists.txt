@@ -84,21 +84,24 @@ add_executable(${PROJECT_NAME}.elf
 	third_party/moonlight-common-c/src/AudioStream.c
 	third_party/moonlight-common-c/src/ByteBuffer.c
 	third_party/moonlight-common-c/src/Connection.c
+	third_party/moonlight-common-c/src/ConnectionTester.c
 	third_party/moonlight-common-c/src/ControlStream.c
 	third_party/moonlight-common-c/src/FakeCallbacks.c
 	third_party/moonlight-common-c/src/InputStream.c
 	third_party/moonlight-common-c/src/LinkedBlockingQueue.c
 	third_party/moonlight-common-c/src/Misc.c
 	third_party/moonlight-common-c/src/Platform.c
+	third_party/moonlight-common-c/src/PlatformCrypto.c
 	third_party/moonlight-common-c/src/PlatformSockets.c
-	third_party/moonlight-common-c/src/RtpReorderQueue.c
+	third_party/moonlight-common-c/src/RecorderCallbacks.c
+	third_party/moonlight-common-c/src/RtpAudioQueue.c
+	third_party/moonlight-common-c/src/RtpVideoQueue.c
 	third_party/moonlight-common-c/src/RtspConnection.c
 	third_party/moonlight-common-c/src/RtspParser.c
 	third_party/moonlight-common-c/src/SdpGenerator.c
+	third_party/moonlight-common-c/src/SimpleStun.c
 	third_party/moonlight-common-c/src/VideoDepacketizer.c
 	third_party/moonlight-common-c/src/VideoStream.c
-	third_party/moonlight-common-c/src/RtpFecQueue.c
-	third_party/moonlight-common-c/src/SimpleStun.c
 	third_party/moonlight-common-c/reedsolomon/rs.c
 
 	third_party/enet/callbacks.c
