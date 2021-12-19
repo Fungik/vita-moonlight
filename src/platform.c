@@ -48,10 +48,6 @@ bool platform_supports_hevc(enum platform system) {
   return false;
 }
 
-int chmod(const char *path, mode_t mode) {
-  return 0;
-}
-
 uid_t getuid(void) {
   return 1;
 }
