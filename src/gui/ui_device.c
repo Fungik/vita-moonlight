@@ -93,6 +93,7 @@ static int mdns_discovery_callback(const struct sockaddr* from,
   switch (type) {
     case MDNS_RECORDTYPE_PTR:
       memset(&devices[found_device], 0, sizeof(device_info_t));
+      devices[found_device].port = 47989;
       break;
     case MDNS_RECORDTYPE_SRV:
       {
@@ -107,6 +108,7 @@ static int mdns_discovery_callback(const struct sockaddr* from,
         }
         // FIXME: remove special codes
         strncpy(devices[found_device].name, srv.name.str, p - srv.name.str);
+        devices[found_device].port = srv.port;
       }
       break;
     case MDNS_RECORDTYPE_A:

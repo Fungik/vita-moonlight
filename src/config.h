@@ -74,6 +74,8 @@ typedef struct _CONFIGURATION {
   // runtime configuration, value will be recreated at launch
   SceCtrlButtons btn_confirm;
   SceCtrlButtons btn_cancel;
+  int pin;
+  uint16_t port;
 } CONFIGURATION, *PCONFIGURATION;
 
 extern CONFIGURATION config;

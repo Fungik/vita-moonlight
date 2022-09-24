@@ -228,15 +228,15 @@ disconnect:
   return 1;
 }
 
-int ui_connect(char *name, char *address) {
+int ui_connect(char *name, char *address, uint16_t port) {
   int ret;
   if (!connection_is_ready()) {
-    flash_message("Connecting to:\n %s...", address);
+    flash_message("Connecting to:\n %s:%d...", address, port);
 
     char key_dir[4096];
     sprintf(key_dir, "%s/%s", config.key_dir, name);
 
-    ret = gs_init(&server, address, key_dir, 0, true);
+    ret = gs_init(&server, address, port, key_dir, 0, true);
     if (ret == GS_OUT_OF_MEMORY) {
       display_error("Not enough memory");
       return 0;
@@ -372,7 +372,7 @@ device_info_t* ui_connect_and_pairing(device_info_t *info) {
   sprintf(key_dir, "%s/%s", config.key_dir, info->name);
   sceIoMkdir(key_dir, 0777);
 
-  int ret = gs_init(&server, info->internal, key_dir, 0, true);
+  int ret = gs_init(&server, info->internal, info->port, key_dir, 0, true);
 
   if (ret == GS_OUT_OF_MEMORY) {
     display_error("Not enough memory");
@@ -452,18 +452,18 @@ void ui_connect_manual() {
   ui_connect_and_pairing(&info);
 }
 
-bool check_connection(const char *name, char *addr) {
+bool check_connection(const char *name, char *addr, uint16_t port) {
   // someone already connected
   if (connection_is_ready()) {
     return false;
   }
 
-  flash_message("Check connecting to:\n %s...", addr);
+  flash_message("Check connecting to:\n %s:%d...", addr, port);
 
   char key_dir[4096];
   sprintf(key_dir, "%s/%s", config.key_dir, name);
 
-  if (gs_init(&server, addr, key_dir, 0, true) != GS_OK) {
+  if (gs_init(&server, addr, port, key_dir, 0, true) != GS_OK) {
     return false;
   }
   connection_terminate();
@@ -477,11 +477,11 @@ void ui_connect_paired_device(device_info_t *info) {
   }
 
   char *addr = NULL;
-  if (info->prefer_external && info->external && check_connection(info->name, info->external)) {
+  if (info->prefer_external && info->external && check_connection(info->name, info->external, info->port)) {
     addr = info->external;
-  } else if (info->internal && check_connection(info->name, info->internal)) {
+  } else if (info->internal && check_connection(info->name, info->internal, info->port)) {
     addr = info->internal;
-  } else if (info->external && check_connection(info->name, info->external)) {
+  } else if (info->external && check_connection(info->name, info->external, info->port)) {
     addr = info->external;
   }
   info->prefer_external = addr == info->external;
@@ -492,7 +492,7 @@ void ui_connect_paired_device(device_info_t *info) {
     return;
   }
 
-  if (!ui_connect(info->name, addr)) {
+  if (!ui_connect(info->name, addr, info->port)) {
     return;
   }
 

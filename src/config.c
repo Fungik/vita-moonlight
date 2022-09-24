@@ -39,7 +39,7 @@
 #define write_config_string(fd, key, value) fprintf(fd, "%s = %s\n", key, value)
 #define write_config_int(fd, key, value) fprintf(fd, "%s = %d\n", key, value)
 #define write_config_hex(fd, key, value) fprintf(fd, "%s = %X\n", key, value)
-#define write_config_bool(fd, key, value) fprintf(fd, "%s = %s\n", key, value ? "true":"false")
+#define write_config_bool(fd, key, value) fprintf(fd, "%s = %s\n", key, value?"true":"false");
 #define write_config_section(fd, key) fprintf(fd, "\n[%s]\n", key)
 
 CONFIGURATION config;
@@ -84,6 +84,8 @@ static int ini_handle(void *out, const char *section, const char *name,
   } else {
     if (strcmp(name, "address") == 0) {
       config->address = STR(value);
+    } else if (strcmp(name, "port") == 0) {
+      config->port = INT(value);
     } else if (strcmp(name, "width") == 0) {
       config->stream.width = INT(value);
     } else if (strcmp(name, "height") == 0) {
@@ -135,6 +137,8 @@ void config_save(const char* filename, PCONFIGURATION config) {
 
   if (config->address)
     write_config_string(fd, "address", config->address);
+  if (config->port)
+    write_config_int(fd, "port", config->port);
 
   if (config->mapping)
     write_config_string(fd, "mapping", config->mapping);
@@ -214,6 +218,7 @@ void config_parse(int argc, char* argv[], PCONFIGURATION config) {
   config->app = "Steam";
   config->action = NULL;
   config->address = NULL;
+  config->port = 47989;
   config->config_file = NULL;
   config->sops = true;
   config->localaudio = false;
