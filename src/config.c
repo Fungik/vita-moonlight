@@ -84,8 +84,6 @@ static int ini_handle(void *out, const char *section, const char *name,
   } else {
     if (strcmp(name, "address") == 0) {
       config->address = STR(value);
-    } else if (strcmp(name, "port") == 0) {
-      config->port = INT(value);
     } else if (strcmp(name, "width") == 0) {
       config->stream.width = INT(value);
     } else if (strcmp(name, "height") == 0) {
@@ -120,6 +118,8 @@ static int ini_handle(void *out, const char *section, const char *name,
       config->stream.streamingRemotely = INT(value);
     } else if (strcmp(name, "enable_vita_vblank_wait") == 0) {
       config->enable_vita_vblank_wait = BOOL(value);
+    //} else if (strcmp(name, "enable_hdr") == 0) {
+    //  config->stream.enableHdr = BOOL(value);
     }
   }
 }
@@ -137,8 +137,6 @@ void config_save(const char* filename, PCONFIGURATION config) {
 
   if (config->address)
     write_config_string(fd, "address", config->address);
-  if (config->port)
-    write_config_int(fd, "port", config->port);
 
   if (config->mapping)
     write_config_string(fd, "mapping", config->mapping);
@@ -172,6 +170,7 @@ void config_save(const char* filename, PCONFIGURATION config) {
   write_config_bool(fd, "enable_ref_frame_invalidation", config->enable_ref_frame_invalidation);
   write_config_int(fd, "enable_remote_stream_optimization", config->stream.streamingRemotely);
   write_config_bool(fd, "enable_vita_vblank_wait", config->enable_vita_vblank_wait);
+  //write_config_bool(fd, "enable_hdr", config->stream.enableHdr);
 
   write_config_section(fd, "backtouchscreen_deadzone");
   write_config_int(fd, "top",     config->back_deadzone.top);
@@ -212,13 +211,13 @@ void config_parse(int argc, char* argv[], PCONFIGURATION config) {
   config->stream.streamingRemotely = 0;
   config->stream.audioConfiguration = AUDIO_CONFIGURATION_STEREO;
   config->stream.supportsHevc = false;
+  config->stream.enableHdr = false;
 
   config->platform = "vita";
   config->model = sceKernelGetModelForCDialog();
   config->app = "Steam";
   config->action = NULL;
   config->address = NULL;
-  config->port = 47989;
   config->config_file = NULL;
   config->sops = true;
   config->localaudio = false;
