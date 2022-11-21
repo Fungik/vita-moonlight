@@ -159,7 +159,7 @@ int ui_connect_loop(int id, void *context, const input_data *input) {
       char pin[5];
       char message[256];
       sprintf(pin, "%d%d%d%d",
-              (int)rand() % 10, (int)rand() % 10, (int)rand() % 10, (int)rand() % 10);
+              (uint32_t)rand() % 10, (uint32_t)rand() % 10, (uint32_t)rand() % 10, (uint32_t)rand() % 10);
       flash_message("Please enter the following PIN\non the target PC:\n\n%s", pin);
 
       ret = gs_pair(&server, &pin[0]);

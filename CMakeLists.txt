@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 2.8)
 set(CMAKE_SYSTEM_NAME "Generic")
 set(CMAKE_C_COMPILER "arm-vita-eabi-gcc")
 set(CMAKE_CXX_COMPILER "arm-vita-eabi-g++")
+add_compile_options(-Wall -Wextra -Wno-unused-parameter -Wno-pointer-sign -Wno-sign-compare -Wno-switch)
+
+#aux_source_directory(./src SRC_LIST)
 
 project(moonlight)
 set(TITLE_ID "XYZZ00002")
