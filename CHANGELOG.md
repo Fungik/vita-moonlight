@@ -1,4 +1,6 @@
 ## Unreleased
+
+## 0.9.2
 * Fixed disconnects after stream is started (#222)
 
 ## 0.9.1
