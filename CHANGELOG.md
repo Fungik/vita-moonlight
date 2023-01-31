@@ -1,4 +1,5 @@
 ## Unreleased
+* Fixed disconnects after stream is started (#222)
 
 ## 0.9.1
 * Support GFE 3.22 (2452e98)
