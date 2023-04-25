@@ -449,7 +449,8 @@ int gs_pair(PSERVER_DATA server, char* pin) {
 
   char plaincert[8192];
   for (int count = 0; count < strlen(result); count += 2) {
-    sscanf(&result[count], "%2hhx", &plaincert[count / 2]);
+    char hex_byte[3] = {result[count], result[count + 1], '\0'};
+    plaincert[count / 2] = (uint8_t)strtol(hex_byte, NULL, 16);
   }
   plaincert[strlen(result)/2] = '\0';
   printf("%d / %d\n", strlen(result)/2, strlen(plaincert));
@@ -505,7 +506,8 @@ int gs_pair(PSERVER_DATA server, char* pin) {
   char challenge_response_data_enc[48];
   char challenge_response_data[48];
   for (int count = 0; count < strlen(result); count += 2) {
-    sscanf(&result[count], "%2hhx", &challenge_response_data_enc[count / 2]);
+    char hex_byte[3] = {result[count], result[count + 1], '\0'};
+    challenge_response_data_enc[count / 2] = (uint8_t)strtol(hex_byte, NULL, 16);
   }
 
   for (int i = 0; i < 48; i += 16) {
@@ -560,7 +562,8 @@ int gs_pair(PSERVER_DATA server, char* pin) {
 
   char pairing_secret[16 + 256];
   for (int count = 0; count < strlen(result); count += 2) {
-    sscanf(&result[count], "%2hhx", &pairing_secret[count / 2]);
+    char hex_byte[3] = {result[count], result[count + 1], '\0'};
+    pairing_secret[count / 2] = (uint8_t)strtol(hex_byte, NULL, 16);
   }
 
   if (!verifySignature(pairing_secret, 16, pairing_secret+16, 256, plaincert)) {
