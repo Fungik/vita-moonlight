@@ -3,17 +3,17 @@ import sys
 
 def ver2appver(version):
     try:
-        versions = map(int, version.split('.'))
+        versions = tuple(map(int, version.split('.')))
         return '%02d.%02d' % tuple(versions[:2])
     except ValueError:
         return '00.00'
 
 if len(sys.argv) < 2:
-    version = raw_input("new release version? ")
+    version = input("new release version? ")
 else:
     version = sys.argv[1]
 
-versions = map(int, version.split('.'))
+versions = tuple(map(int, version.split('.')))
 if len(versions) != 3:
     print("version format must be A.B.C");
     raise SystemExit(1)
