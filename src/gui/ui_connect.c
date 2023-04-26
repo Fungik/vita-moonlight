@@ -449,6 +449,8 @@ void ui_connect_manual() {
   if (ime_dialog_string(info.internal, "Enter IP or Address:", "") != 0) {
     return;
   }
+  // TODO receive user input
+  info.port = 47989;
   ui_connect_and_pairing(&info);
 }
 
