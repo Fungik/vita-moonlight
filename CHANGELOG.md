@@ -1,4 +1,6 @@
 ## Unreleased
+
+## 0.9.3
 * Fix pairing issue (#231, 5494d93)
 * Update latest moonlight-common-c & enet (902cbed)
 * Update latest libgamestream (#232)
