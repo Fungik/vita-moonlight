@@ -1,9 +1,11 @@
 #pragma once
 #include <stdbool.h>
+#include <stdint.h>
 
 typedef struct device_info device_info_t;
 struct device_info {
   char name[256];
+  uint16_t port;
   bool paired;
   char internal[256];
   char external[256];
